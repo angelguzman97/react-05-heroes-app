@@ -1,0 +1,46 @@
+import { createBrowserRouter } from "react-router";
+import { AdminLayout } from "@/admin/layouts/AdminLayout";
+import { AdminPage } from "@/admin/pages/AdminPage";
+import { HeroLayout } from "@/heroes/layouts/HeroLayout";
+import { HeroPage } from "@/heroes/pages/hero/HeroPage";
+import { HomePage } from "@/heroes/pages/home/HomePage";
+import { lazy } from "react";
+// import { SearchPage } from "@/heroes/pages/search/SearchPage";
+
+const SearchPage = lazy(()=> import('@/heroes/pages/search/SearchPage'));
+
+export const appRouter = createBrowserRouter([
+
+    // Si queremos que ciertas paginas tengan la misma estructura,
+    // Como son componentes hijos, ya no se les coloca el "/" al path, porque el componente padre, ya esta puesto
+    {
+        path: '/',
+        element: <HeroLayout />,
+        children: [
+            {
+                index: true, // Este como es la pagina principal. Solo se le coloca index para que entre directamente
+                element: <HomePage />
+            },
+            {
+                path: 'hero/1',
+                element: <HeroPage />
+            },
+            {
+                path: 'search',
+                element: <SearchPage />
+            },
+        ]
+    },
+    // Pagina con distinta estructura
+    {
+        path: '/admin',
+        element: <AdminLayout />,
+        children: [
+            {
+                index: true,
+                element: <AdminPage />
+            },
+        ]
+    }
+
+])
