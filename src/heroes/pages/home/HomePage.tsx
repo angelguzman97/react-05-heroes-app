@@ -23,13 +23,13 @@ export const HomePage = () => {
   // 2. queryFn es la función que se desea disparar cuando eso suceda (es decir, la petición)
   // 3. statleTime sirve para indcarle a tanstack cuánto tiempo considara el reultado de la petición como fresca.
 
-  const { data } = useQuery({
+  const { data: heroesResponse } = useQuery({
     queryKey: ['heroes'],
     queryFn: () => getHeroesByPageAction(),
     staleTime: 1000 * 60 * 5 // 5min
   });
 
-  console.log({ data });
+  console.log({ heroesResponse });
 
 
   // useEffect(() => {
@@ -66,25 +66,25 @@ export const HomePage = () => {
 
           <TabsContent value="all">
             {/* Character Grid. Mostrar todos los personajes */}
-            <HeroGrid />
+            <HeroGrid heroes={heroesResponse?.heroes ?? []} />
           </TabsContent>
 
           <TabsContent value="favorites">
             {/* Mostrar todos los personajes favoritos */}
             <h1>Favoritos</h1>
-            <HeroGrid />
+            <HeroGrid heroes={heroesResponse?.heroes ?? []} />
           </TabsContent>
 
           <TabsContent value="heroes">
             {/* Mostrar todos los héroes */}
             <h1>Héroes</h1>
-            <HeroGrid />
+            <HeroGrid heroes={heroesResponse?.heroes ?? []} />
           </TabsContent>
 
           <TabsContent value="villains">
             {/* Mostrar todos los villanos */}
             <h1>Villanos</h1>
-            <HeroGrid />
+            <HeroGrid heroes={heroesResponse?.heroes ?? []} />
           </TabsContent>
         </Tabs>
 
