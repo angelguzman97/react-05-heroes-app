@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import { AdminLayout } from "@/admin/layouts/AdminLayout";
 import { AdminPage } from "@/admin/pages/AdminPage";
 import { HeroLayout } from "@/heroes/layouts/HeroLayout";
@@ -7,7 +7,7 @@ import { HomePage } from "@/heroes/pages/home/HomePage";
 import { lazy } from "react";
 // import { SearchPage } from "@/heroes/pages/search/SearchPage";
 
-const SearchPage = lazy(()=> import('@/heroes/pages/search/SearchPage'));
+const SearchPage = lazy(() => import('@/heroes/pages/search/SearchPage'));
 
 export const appRouter = createBrowserRouter([
 
@@ -22,12 +22,17 @@ export const appRouter = createBrowserRouter([
                 element: <HomePage />
             },
             {
-                path: 'hero/1',
+                path: 'heroes/:idSlug', // Después de los : se le da nombre al parámetro
                 element: <HeroPage />
             },
             {
                 path: 'search',
                 element: <SearchPage />
+            },
+            {
+                path: '*',
+                // element: <h1>404</h1>
+                element: <Navigate to={'/'} />
             },
         ]
     },
