@@ -11,8 +11,6 @@ export const getHeroesByPageAction = async (): Promise<HeroesResponse> => {
         image: `${BASE_URL}/images/${hero.image}`
     }))
 
-    console.log({ data });
-
     return {
         ...data,
         heroes: heroes,

@@ -12,8 +12,6 @@ interface Props {
 
 export const HeroGridCard = ({ hero }: Props) => {
 
-    console.log({ hero });
-
     const navigate = useNavigate();
 
     const handleClick = () => {
