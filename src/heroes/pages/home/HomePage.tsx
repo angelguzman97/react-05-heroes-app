@@ -8,6 +8,8 @@ import { CustomPagination } from "@/components/ui/custom/CustomPagination"
 import { CustomBreadcrumbs } from "@/components/ui/custom/CustomBreadcrumbs"
 import { getHeroesByPageAction } from "@/heroes/actions/get-heroes-by-page.action"
 import { useSearchParams } from "react-router"
+import { useHeroSummary } from "@/heroes/hooks/useHeroSummary"
+import { usePaginatedHero } from "@/heroes/hooks/usePaginatedHero"
 
 export const HomePage = () => {
 
@@ -39,23 +41,24 @@ export const HomePage = () => {
   // 2. queryFn es la función que se desea disparar cuando eso suceda (es decir, la petición)
   // 3. statleTime sirve para indcarle a tanstack cuánto tiempo considara el reultado de la petición como fresca.
 
-  const { data: heroesResponse } = useQuery({
-    // queryKey: ['heroes', 'page', page], // Para que modifique la data hay que cambiar la queryKey
-    // tanstackQuery hace las peticiones http mediante los queryKey
-    // queryKey: ['heroes', 'limit', limit, 'page', page], // Se manda el objeto porque si se pone por separado, es decir, ['heroes','pages', pages, 'limit', limit], 
-    // puede ser que a futuro se modifique y se ponga de la siguiente manera ['heroes', 'limit', limit, 'pages', pages]
-    // Y puede ser que tanStackQuery lo interprete de manera diferente
-    queryKey: ['heroes', { page, limit }], // Por esa razon se manda un objeto
-    queryFn: () => getHeroesByPageAction(+page, +limit),
-    staleTime: 1000 * 60 * 5 // 5min
-  });
+  // const { data: heroesResponse } = useQuery({
+  // queryKey: ['heroes', 'page', page], // Para que modifique la data hay que cambiar la queryKey
+  // tanstackQuery hace las peticiones http mediante los queryKey
+  // queryKey: ['heroes', 'limit', limit, 'page', page], // Se manda el objeto porque si se pone por separado, es decir, ['heroes','pages', pages, 'limit', limit], 
+  // puede ser que a futuro se modifique y se ponga de la siguiente manera ['heroes', 'limit', limit, 'pages', pages]
+  // Y puede ser que tanStackQuery lo interprete de manera diferente
+  //   queryKey: ['heroes', { page, limit }], // Por esa razon se manda un objeto
+  //   queryFn: () => getHeroesByPageAction(+page, +limit),
+  //   staleTime: 1000 * 60 * 5 // 5min
+  // });
 
-
+  const { data: heroesResponse } = usePaginatedHero(+page, +limit); // Se redujo a un hook
 
   // useEffect(() => {
   //   getHeroesByPage().then();
   // }, [])
 
+  const { data: summary } = useHeroSummary();
 
   return (
     <>
@@ -76,7 +79,7 @@ export const HomePage = () => {
               onClick={() => setSearchParams((prev) => {
                 prev.set('tab', 'all');
                 return prev;
-              })}>All Characters (16)</TabsTrigger>
+              })}>All Characters ({summary?.totalHeroes})</TabsTrigger>
             <TabsTrigger value="favorites" className="flex items-center gap-2"
               onClick={() => setSearchParams((prev) => {
                 prev.set('tab', 'favorites');
@@ -88,12 +91,12 @@ export const HomePage = () => {
               onClick={() => setSearchParams((prev) => {
                 prev.set('tab', 'heroes');
                 return prev;
-              })}>Heroes (12)</TabsTrigger>
+              })}>Heroes ({summary?.heroCount})</TabsTrigger>
             <TabsTrigger value="villains"
               onClick={() => setSearchParams((prev) => {
                 prev.set('tab', 'villains');
                 return prev;
-              })}>Villains (2)</TabsTrigger>
+              })}>Villains ({summary?.villainCount})</TabsTrigger>
           </TabsList>
 
           <TabsContent value="all">
