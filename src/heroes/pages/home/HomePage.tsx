@@ -40,7 +40,12 @@ export const HomePage = () => {
   // 3. statleTime sirve para indcarle a tanstack cuánto tiempo considara el reultado de la petición como fresca.
 
   const { data: heroesResponse } = useQuery({
-    queryKey: ['heroes'],
+    // queryKey: ['heroes', 'page', page], // Para que modifique la data hay que cambiar la queryKey
+    // tanstackQuery hace las peticiones http mediante los queryKey
+    // queryKey: ['heroes', 'limit', limit, 'page', page], // Se manda el objeto porque si se pone por separado, es decir, ['heroes','pages', pages, 'limit', limit], 
+    // puede ser que a futuro se modifique y se ponga de la siguiente manera ['heroes', 'limit', limit, 'pages', pages]
+    // Y puede ser que tanStackQuery lo interprete de manera diferente
+    queryKey: ['heroes', { page, limit }], // Por esa razon se manda un objeto
     queryFn: () => getHeroesByPageAction(+page, +limit),
     staleTime: 1000 * 60 * 5 // 5min
   });
@@ -116,7 +121,7 @@ export const HomePage = () => {
         </Tabs>
 
         {/* Pagination */}
-        <CustomPagination totalPages={5} />
+        <CustomPagination totalPages={heroesResponse?.pages ?? 1} />
       </>
     </>
   )
