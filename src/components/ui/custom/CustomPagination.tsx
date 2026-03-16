@@ -1,4 +1,4 @@
-import { ChevronLeft, MoreHorizontal, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '../button'
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const CustomPagination = ({ totalPages }: Props) => {
-    const page = 8 as number;
+    const page = 1 as number;
 
     return (
         <div className="flex items-center justify-center space-x-2">

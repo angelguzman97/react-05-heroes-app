@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CustomJumbotron } from "@/components/ui/custom/CustomJumbotron"
@@ -11,9 +11,12 @@ import { useSearchParams } from "react-router"
 
 export const HomePage = () => {
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams(); // Para colocar los parametros en la url
 
-  const activeTab = searchParams.get('tab') ?? 'all';
+  const activeTab = searchParams.get('tab') ?? 'all'; // Peticion por categoria
+  const page = searchParams.get('page') ?? '1'; // Peticion paginado
+  const limit = searchParams.get('limit') ?? '6'; // Peticion limite
+
 
   const selectedTab = useMemo(() => {
     const validTab = ["all", "favorites", "heroes", "villains"];
@@ -38,7 +41,7 @@ export const HomePage = () => {
 
   const { data: heroesResponse } = useQuery({
     queryKey: ['heroes'],
-    queryFn: () => getHeroesByPageAction(),
+    queryFn: () => getHeroesByPageAction(+page, +limit),
     staleTime: 1000 * 60 * 5 // 5min
   });
 
@@ -113,7 +116,7 @@ export const HomePage = () => {
         </Tabs>
 
         {/* Pagination */}
-        <CustomPagination totalPages={8} />
+        <CustomPagination totalPages={5} />
       </>
     </>
   )
