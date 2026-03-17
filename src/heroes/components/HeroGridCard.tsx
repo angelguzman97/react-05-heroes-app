@@ -16,6 +16,7 @@ export const HeroGridCard = ({ hero }: Props) => {
 
     const handleClick = () => {
         navigate(`/heroes/${hero.slug}`);
+        
     }
 
     return (
