@@ -1,5 +1,11 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Slider } from '@/components/ui/slider'
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+} from "@/components/ui/accordion"
 import { Filter, Grid, Plus, Search, SortAsc } from 'lucide-react'
 import React, { useRef } from 'react'
 import { useSearchParams } from 'react-router'
@@ -61,50 +67,60 @@ export const SearchControls = () => {
                     </Button>
                 </div>
             </div>
-
-
-            {/* Advanced Filters */}
-            <div className="bg-white rounded-lg p-6 mb-8 shadow-sm border">
-                <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-semibold">Advanced Filters</h3>
-                    <Button variant="ghost">Clear All</Button>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium">Team</label>
-                        <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                            All teams
-                        </div>
-                    </div>
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium">Category</label>
-                        <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                            All categories
-                        </div>
-                    </div>
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium">Universe</label>
-                        <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                            All universes
-                        </div>
-                    </div>
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium">Status</label>
-                        <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                            All statuses
-                        </div>
-                    </div>
-                </div>
-                <div className="mt-4">
-                    <label className="text-sm font-medium">Minimum Strength: 0/10</label>
-                    <div className="relative flex w-full touch-none select-none items-center mt-2">
+            <div>
+                {/* Advanced Filters */}
+                <Accordion type="single" collapsible defaultValue='item-1'>
+                    <AccordionItem value="item-1">
+                        {/* <AccordionTrigger>Filtros avanzados</AccordionTrigger> */}
+                        <AccordionContent>
+                            <div className="bg-white rounded-lg p-6 mb-8 shadow-sm border">
+                                <div className="flex justify-between items-center mb-4">
+                                    <h3 className="text-lg font-semibold">Advanced Filters</h3>
+                                    <Button variant="ghost">Clear All</Button>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium">Team</label>
+                                        <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+                                            All teams
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium">Category</label>
+                                        <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+                                            All categories
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium">Universe</label>
+                                        <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+                                            All universes
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium">Status</label>
+                                        <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+                                            All statuses
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="mt-4">
+                                    <label className="text-sm font-medium">Minimum Strength: 0/10</label>
+                                    {/* <div className="relative flex w-full touch-none select-none items-center mt-2">
                         <div className="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary">
                             <div className="absolute h-full bg-primary" style={{ width: "0%" }} />
                         </div>
                         <div className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors" />
-                    </div>
-                </div>
+                    </div> */}
+
+                                    <Slider defaultValue={[5]} max={10} step={1} />
+                                </div>
+                            </div>
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
             </div>
+
         </>
     )
 }
