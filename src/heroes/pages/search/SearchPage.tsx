@@ -10,10 +10,11 @@ import { useSearchParams } from 'react-router';
 export const SearchPage = () => {
   const [searchParams] = useSearchParams(); // Solo se necesita el parametro y no cambia de pantalla
   const name = searchParams.get('name') ?? undefined;
+  const strength = searchParams.get('strength') ?? undefined;
 
   const { data: heroes = [] } = useQuery({
-    queryKey: ['search', { name }],
-    queryFn: () => searchHeroesAction({ name }), // Como vienen varias opciones se pone entre llaves
+    queryKey: ['search', { name, strength }],
+    queryFn: () => searchHeroesAction({ name, strength }), // Como vienen varias opciones se pone entre llaves
     staleTime: 1000 * 60 * 5
   });
 
