@@ -7,7 +7,6 @@ export const getHeroesByPageAction = async (
     page: number,
     limit: number = 6,
     category: string = 'all',
-    name: string = ''
 ): Promise<HeroesResponse> => {
 
     if (isNaN(page)) {
@@ -23,7 +22,6 @@ export const getHeroesByPageAction = async (
             limit: limit,
             offset: (page - 1) * limit, // page= 0-1*6 = 6. Primero 6 registros
             category: category,
-            name: name
         }
     });
 
