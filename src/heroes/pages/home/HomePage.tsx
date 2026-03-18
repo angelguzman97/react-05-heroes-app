@@ -1,15 +1,14 @@
-import { useMemo } from "react"
-import { useQuery } from "@tanstack/react-query"
+import { use, useMemo } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CustomJumbotron } from "@/components/ui/custom/CustomJumbotron"
 import { HeroStats } from "@/heroes/components/HeroStats"
 import { HeroGrid } from "@/heroes/components/HeroGrid"
 import { CustomPagination } from "@/components/ui/custom/CustomPagination"
 import { CustomBreadcrumbs } from "@/components/ui/custom/CustomBreadcrumbs"
-import { getHeroesByPageAction } from "@/heroes/actions/get-heroes-by-page.action"
 import { useSearchParams } from "react-router"
 import { useHeroSummary } from "@/heroes/hooks/useHeroSummary"
 import { usePaginatedHero } from "@/heroes/hooks/usePaginatedHero"
+import { FavoriteHeroContext } from "@/heroes/context/FavoriteHeroContext"
 
 export const HomePage = () => {
 
@@ -60,6 +59,7 @@ export const HomePage = () => {
   // }, [])
 
   const { data: summary } = useHeroSummary();
+  const { favoriteCount, favorites } = use(FavoriteHeroContext)
 
   return (
     <>
@@ -89,7 +89,7 @@ export const HomePage = () => {
                 // prev.set('category', 'favorites');
                 return prev;
               })}>
-              Favorites (3)
+              Favorites ({favoriteCount})
             </TabsTrigger>
             <TabsTrigger value="heroes"
               onClick={() => setSearchParams((prev) => {
@@ -115,7 +115,7 @@ export const HomePage = () => {
           <TabsContent value="favorites">
             {/* Mostrar todos los personajes favoritos */}
             <h1>Favoritos</h1>
-            <HeroGrid heroes={[]} />
+            <HeroGrid heroes={favorites ?? []} />
           </TabsContent>
 
           <TabsContent value="heroes">
@@ -132,7 +132,10 @@ export const HomePage = () => {
         </Tabs>
 
         {/* Pagination */}
-        <CustomPagination totalPages={heroesResponse?.pages ?? 1} />
+        {selectedTab !== 'favorites' && (
+          <CustomPagination totalPages={heroesResponse?.pages ?? 1} />
+        )}
+
       </>
     </>
   )
