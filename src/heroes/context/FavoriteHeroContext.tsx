@@ -47,7 +47,13 @@ const getFavoritesFromLocalStorage = (): Hero[] => {
 
     if (!result.success) {
         console.log('Invalid facorites data', result.error);
-        return [];
+
+        try {
+            return JSON.parse(favorites)
+        } catch (error) {
+            
+            return [];
+        }
     }
 
     return result.data;

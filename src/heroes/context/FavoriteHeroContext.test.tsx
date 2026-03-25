@@ -1,6 +1,6 @@
 import { use } from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, test } from "vitest";
+import { beforeEach, describe, expect, test } from "vitest";
 import { FavoriteHeroContext, FavoriteHeroProvider } from "./FavoriteHeroContext";
 import type { Hero } from "../types/hero.interface";
 
@@ -45,6 +45,10 @@ const renderContextTest = () => {
 }
 
 describe('FavoriteHeroContext', () => {
+    beforeEach(() => {
+        localStorage.clear();
+    });
+
     test('should initial with defaul values', () => {
         renderContextTest();
 
@@ -58,7 +62,29 @@ describe('FavoriteHeroContext', () => {
         const button = screen.getByTestId('toggle-favorite');
         fireEvent.click(button);
         // screen.debug();
+        expect(screen.getByTestId('favorite-count').textContent).toBe('1');
+        expect(screen.getByTestId('is-favorite').textContent).toBe('true');
         expect(screen.getByTestId('hero-1').textContent).toBe('Batman');
-        expect(localStorage.getItem('favorites')).toBe('[{"id":"1","name":"Bruce Wayne","alias":"Batman"}]')
+        expect(localStorage.getItem('favorites')).toBe('[{"id":"1","name":"Bruce Wayne","alias":"Batman"}]');
+    });
+
+    test('should remove hero from favorites when toggleFavorite is called', () => {
+        // En caso que no funcione el beforeEach
+        // localStorage.clear();
+        console.log(localStorage.getItem('favorites'));
+        localStorage.setItem('favorites', JSON.stringify([mockHero]));
+
+        renderContextTest();
+        expect(screen.getByTestId('favorite-count').textContent).toBe('1');
+        expect(screen.getByTestId('is-favorite').textContent).toBe('true');
+        expect(screen.getByTestId('hero-1').textContent).toBe('Batman');
+
+        const button = screen.getByTestId('toggle-favorite');
+        screen.debug();
+        fireEvent.click(button);
+
+        expect(screen.getByTestId('favorite-count').textContent).toBe('0');
+        expect(screen.getByTestId('is-favorite').textContent).toBe('false');
+        expect(screen.queryByTestId('hero-1')).toBeNull();
     });
 });
