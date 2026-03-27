@@ -1,7 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`HeroStat > should render component with default value 1`] = `undefined`;
-
 exports[`HeroStats > should render HeroStats with mock information 1`] = `
 <div>
   <div
@@ -121,11 +119,15 @@ exports[`HeroStats > should render HeroStats with mock information 1`] = `
       >
         <div
           class="text-2xl font-bold text-red-600"
-        />
+          data-testid="favorite-count"
+        >
+          0
+        </div>
         <p
           class="text-xs text-muted-foreground"
+          data-testid="favorite-percentage"
         >
-          NaN
+          0.00
           % of total
         </p>
       </div>
