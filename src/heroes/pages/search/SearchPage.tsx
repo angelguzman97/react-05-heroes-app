@@ -1,7 +1,7 @@
-import { CustomJumbotron } from '@/components/ui/custom/CustomJumbotron';
+import { CustomJumbotron } from '@/components/custom/CustomJumbotron';
 import { HeroStats } from '@/heroes/components/HeroStats';
 import { SearchControls } from './ui/SearchControls';
-import { CustomBreadcrumbs } from '@/components/ui/custom/CustomBreadcrumbs';
+import { CustomBreadcrumbs } from '@/components/custom/CustomBreadcrumbs';
 import { HeroGrid } from '@/heroes/components/HeroGrid';
 import { useQuery } from '@tanstack/react-query';
 import { searchHeroesAction } from '@/heroes/actions/search-heroes.action';

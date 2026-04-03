@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, } from '../navigation-menu'
+import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, } from '../ui/navigation-menu'
 import { Link, useLocation } from 'react-router'
 
 export const CustomMenu = () => {
