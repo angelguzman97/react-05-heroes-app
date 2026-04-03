@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
 import { CustomPagination } from "./CustomPagination";
 import type React from "react";
@@ -50,9 +50,22 @@ describe('CustomPagination', () => {
         renderWithRouter(<CustomPagination totalPages={10} />, ['/?page=3']);
         const button2 = screen.getByText('2');
         const button3 = screen.getByText('3');
-        screen.debug(button2);
-        screen.debug(button3);
+        // screen.debug(button2);
+        // screen.debug(button3);
         expect(button2.getAttribute('variant')).toBe('outline');
         expect(button3.getAttribute('variant')).toBe('default');
     });
+
+    test('should change page when click on number button', () => {
+        renderWithRouter(<CustomPagination totalPages={5} />, ['/?page=3']);
+        const button2 = screen.getByText('2');
+        const button3 = screen.getByText('3');
+        expect(button2.getAttribute('variant')).toBe('outline');
+        expect(button3.getAttribute('variant')).toBe('default');
+
+        screen.debug();
+        fireEvent.click(button2);
+        expect(button2.getAttribute('variant')).toBe('default');
+        expect(button3.getAttribute('variant')).toBe('outline');
+    })
 });
