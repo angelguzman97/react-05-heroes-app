@@ -62,4 +62,14 @@ describe('appRouter', () => {
         // screen.debug();
 
     });
+   
+    test('should redirect to home page for unknown routes', () => { // Como es un componente perezoso, es asíncrono
+        const router = createMemoryRouter(appRouter.routes, {
+            initialEntries: ['/pagina-rara']
+        });
+        render(<RouterProvider router={router} />)
+        expect( screen.getByTestId('home-page')).toBeDefined();
+        screen.debug();
+
+    });
 })
