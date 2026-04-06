@@ -4,12 +4,15 @@ import SearchPage from "./SearchPage";
 import { MemoryRouter } from "react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { searchHeroesAction } from "@/heroes/actions/search-heroes.action";
-import { HeroGrid } from "@/heroes/components/HeroGrid";
 import type { Hero } from "@/heroes/types/hero.interface";
 //Evaluar la action
 vi.mock('@/heroes/actions/search-heroes.action');
 vi.mock('@/components/custom/CustomJumbotron', () => ({
     CustomJumbotron: () => <div data-testid='custom-jumbotron'></div>
+}));
+// Este mock es para que funcione en el test de SearchControls
+vi.mock('./ui/SearchControls', () => ({
+    SearchControls: () => <div data-testid='search-controls'></div>
 }));
 
 vi.mock('@/heroes/components/HeroGrid', () => ({
