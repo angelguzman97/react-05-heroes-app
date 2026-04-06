@@ -177,6 +177,7 @@ exports[`SearchControls > should render component 1`] = `
       class="flex w-full flex-col"
       data-orientation="vertical"
       data-slot="accordion"
+      data-testid="accordion"
     >
       <div
         class="not-last:border-b"
