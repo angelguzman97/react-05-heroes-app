@@ -1,4 +1,4 @@
-import { getByTestId, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
 import { HeroStats } from "./HeroStats";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

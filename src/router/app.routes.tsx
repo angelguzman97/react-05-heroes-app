@@ -1,4 +1,5 @@
-import { createBrowserRouter, Navigate } from "react-router";
+import { //createBrowserRouter,
+    createHashRouter, Navigate } from "react-router";
 import { AdminLayout } from "@/admin/layouts/AdminLayout";
 import { AdminPage } from "@/admin/pages/AdminPage";
 import { HeroLayout } from "@/heroes/layouts/HeroLayout";
@@ -9,7 +10,8 @@ import { lazy } from "react";
 
 const SearchPage = lazy(() => import('@/heroes/pages/search/SearchPage'));
 
-export const appRouter = createBrowserRouter([
+// export const appRouter = createBrowserRouter([
+export const appRouter = createHashRouter([ //Hasshear la ruta
 
     // Si queremos que ciertas paginas tengan la misma estructura,
     // Como son componentes hijos, ya no se les coloca el "/" al path, porque el componente padre, ya esta puesto
